@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Books Analysis</title>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.7/d3.min.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css" />-->
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+        <link rel="stylesheet" type="text/css" href="/static/css/decade.css" />
+        <link rel="stylesheet" type="text/css" href="/static/css/styles.css" />
+    </head>
+    <body>
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">Books Analysis</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                  <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/decades">Decades</a>
+                      </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Recommendation</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+        </div>
+        <div class="container">
+            <div class="row">
+                <!-- KPIS -->
+                <div class="col-4">
+                    <!-- Books -->
+                    <div class="kpi">
+                        <strong><span class="kpiNumber" id="kpiBooks"></span></strong> <br>
+                        <span class="kpiText">Books</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <!-- Authors -->
+                    <div class="kpi">
+                        <strong><span class="kpiNumber" id="kpiAuthors"></span></strong> <br>
+                        <span class="kpiText">Authors</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <!-- Categories -->
+                    <div class="kpi">
+                        <strong><span class="kpiNumber" id="kpiCategories"></span></strong> <br>
+                        <span class="kpiText">Categories</span>
+                    </div>
+                </div>    
+            </div>
+            <hr>
+            <div class="row">
+                <!-- Graphs -->
+                <div class="col-12">
+                    <!-- Main graphs-->
+                    <!-- Timeline-->
+                    <div class="row">
+                        <div id="tabStatistics" class="col-7">
+                            <div class="header">
+                                <h3>Highlights by Decade</h3>
+                            </div>
+                            <div class="innerTab">
+                                <ul>
+                                    <li><a href="#avgRating">Rating</a></li>
+                                    <li><a href="#noBooks">Published Books</a></li>
+                                    <li><a href="#avgRatingCount">Rating Comments</a></li>
+                                    <li><a href="#noPages">Number of Pages</a></li>
+                                </ul>
+                                <!-- Avg Rating per decade-->
+                                <div id="avgRating" class="row">
+                                </div>
+                                <!-- Number Books per decade-->
+                                <div id="noBooks" class="row">
+                                </div>
+                                <!-- Avg Rating per decade-->
+                                <div id="avgRatingCount" class="row">
+                                </div>
+                                <!-- Avg Rating per decade-->
+                                <div id="noPages" class="row">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tabAuthors" class="col-5">
+                            <div class="header">
+                                <h3>Highlights by Author</h3>
+                            </div>
+                            <div class="innerTab">
+                                <ul>
+                                    <li><a href="#authorsRating">Rating</a></li>
+                                    <li><a href="#authors">Published Books</a></li>
+                                    <li><a href="#tabid">Historical Rating</a></li>
+                                </ul>
+                                <!-- Rating-->
+                                <div id="authorsRating" class="row">
+                                </div>
+                                <!-- Published Books-->
+                                <div id="authors" class="row">
+                                </div>
+                                <!-- Rating per Decade-->
+                                <div id="tabid">
+                                    <div id="authorsDecade" class="row">
+                                    </div>
+                                    <div style="text-align: center;">Choose Author: <select id="selDataset" style="align-content: center"></select></div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- Top 100 per num pages vs rating -->
+                        <div class="col-7">
+                            <div class="header">
+                                <h3>No Pages vs Avg Rating</h3>
+                            </div>
+                            <div class="innerTab">
+                                <div class = "container-fluid" id ="books_pages">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Top 100 Authors -->
+                        <div class="col-5">
+                            <div class="header">
+                                <h3>Published books by Category</h3>
+                            </div>
+                            <div class="innerTab">
+                                <div id="category" class="row">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/static/js/app.js"></script>
+        <script src="/static/js/timelineRating.js"></script>
+        <!--<script src="/static/js/decade.js"></script>-->
+    </body>
+</html>

@@ -1,0 +1,17 @@
+.book{
+    background-color: gray;
+    color:white;
+}
+
+#timeline{
+    background-color: gray;
+}
+
+.bar {
+    fill: #8D739D;
+}
+
+.bartext-inside{
+    fill:white;
+}
+
